@@ -141,14 +141,7 @@
             var danger = document.getElementById("danger")
 
 
-            if (code.value.length != 8 || code.value.length == 0) {
-                danger.setAttribute("style", "display:none");
-
-                danger.setAttribute("style", "display:block");
-                danger.innerHTML = "El codigo debe tener 8 digitos y es necesario";
-
-                return false;
-            } else if (dni.value.length != 8 || dni.value.length == 0) {
+            if (dni.value.length != 8 || dni.value.length == 0) {
                 danger.setAttribute("style", "display:none");
 
                 danger.setAttribute("style", "display:block");
@@ -165,7 +158,6 @@
                         dni: dni.value
                     },
                     success: function (res) {
-                        code.value = '';
                         name.value = '';
                         lastName.value = '';
                         dni.value = '';
