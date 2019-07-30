@@ -134,16 +134,12 @@
 
         function enviar(e) {
 
-
-            var code = document.getElementById("code");
             var name = document.getElementById("name");
             var lastName = document.getElementById("lastName");
             var dni = document.getElementById("dni");
             var success = document.getElementById("success")
             var danger = document.getElementById("danger")
 
-            console.log(code.value.length, "codigo")
-            console.log(dni.length, "dni")
 
             if (code.value.length != 8 || code.value.length == 0) {
                 danger.setAttribute("style", "display:none");
@@ -164,7 +160,6 @@
                     url: 'https://pacific-badlands-65538.herokuapp.com/',
                     type: 'POST',
                     data: {
-                        code: code.value,
                         name: name.value,
                         lastName: lastName.value,
                         dni: dni.value

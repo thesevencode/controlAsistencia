@@ -46,23 +46,13 @@ module.exports = async function() {
 
 
         try {
-            participant = await Participant.findByCode(body.code)
-        } catch (error) {
-            return res.status(200).json({
-                status: false,
-                message: "El codigo ya ha sido registrado"
-            })
-        }
-
-
-        try {
 
             if (!participant) {
                 participant = await Participant.createOrUpdate(body)
             } else {
                 return res.status(200).json({
                     status: false,
-                    message: "El codigo o dni ya ha sido registrado"
+                    message: "El dni ya ha sido registrado"
                 })
             }
 
