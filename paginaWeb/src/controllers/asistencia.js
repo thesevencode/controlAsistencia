@@ -73,9 +73,76 @@ module.exports = async function() {
 
     }
 
+    async function addAssistanceByDni(req, res) {
+
+        let body = req.body;
+        let date = new Date()
+        let participant
+
+        try {
+            participant = await Participant.addAssistanceByDni(body.dni, date)
+        } catch (error) {
+            return res.status(200).json({
+                status: false,
+                message: "La asistencia de hoy ya ha sido registrada"
+            })
+        }
+
+        if (!participant) {
+            res.status(200).json({
+                status: false,
+                message: "La asistencia de hoy ya ha sido registrada"
+            })
+        }
+
+
+
+        res.status(200).json({
+            status: true,
+            participant: participant,
+            message: "Perfecto, Asistencia registrada"
+        })
+
+
+
+    }
+
+    async function findByDni(req, res) {
+
+        let params = req.params
+        let participant
+
+        try {
+            participant = await Participant.findByDni(params.dni)
+
+
+        } catch (error) {
+            return res.status(200).json({
+                status: false,
+                message: "Imposible realizar la operacion"
+            })
+        }
+
+        if (!participant) {
+            return res.status(200).json({
+                status: false,
+                message: "Usuario no encontrado"
+            })
+        }
+
+        res.status(200).json({
+            status: true,
+            participant
+        })
+    }
+
+
+
     return {
         index,
         create,
-        findAll
+        findAll,
+        findByDni,
+        addAssistanceByDni
     }
 }

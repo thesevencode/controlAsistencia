@@ -9,11 +9,10 @@ module.exports = async function() {
 
     router
         .get('/', controller.index)
+        .get('/dni/:dni', controller.findByDni)
         .get('/listar', controller.findAll)
-        // .get('/add', home.index)
         .post('/', controller.create)
-        // .put('/')
-        // .delete('/')
+        .post('/assistance', controller.addAssistanceByDni)
 
     return router
 }
