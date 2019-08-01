@@ -78,9 +78,30 @@ module.exports = async function() {
         let body = req.body;
         let date = new Date()
         let participant
+        let assistance
+
 
         try {
-            participant = await Participant.addAssistanceByDni(body.dni, date)
+            participant = await Participant.findByDni(body.dni)
+
+
+        } catch (error) {
+            return res.status(200).json({
+                status: false,
+                message: "Imposible realizar la operacion"
+            })
+        }
+
+        if (!participant) {
+            return res.status(200).json({
+                status: false,
+                message: "Usuario no encontrado"
+            })
+        }
+
+
+        try {
+            assistance = await Participant.addAssistanceByDni(body.dni, date)
         } catch (error) {
             return res.status(200).json({
                 status: false,
@@ -88,7 +109,7 @@ module.exports = async function() {
             })
         }
 
-        if (!participant) {
+        if (!assistance) {
             res.status(200).json({
                 status: false,
                 message: "La asistencia de hoy ya ha sido registrada"
@@ -99,7 +120,11 @@ module.exports = async function() {
 
         res.status(200).json({
             status: true,
-            participant: participant,
+            participant: {
+                dni: participant.dni,
+                name: participant.name,
+                lastName: participant.lastName
+            },
             message: "Perfecto, Asistencia registrada"
         })
 
