@@ -13,12 +13,50 @@ module.exports = async function() {
         //     })
     }
 
+    async function findByAssistance(req, res) {
+
+        let date = new Date()
+
+        const day = date.getDate()
+        const mon = date.getMonth()
+        const year = date.getFullYear()
+
+        let participants
+
+        try {
+            participants = await Participant.findByAssistance(new Date(year, mon, day), new Date(year, mon, day + 1))
+
+        } catch (error) {
+            if (error) res.satatus(500).json({ error })
+        }
+
+
+        res.render('assistances', { participants: participants });
+    }
+
     async function findAll(req, res) {
 
         let participants
 
         try {
             participants = await Participant.findAll()
+
+            res.status(200).json({
+                participants
+            })
+        } catch (error) {
+            if (error) res.satatus(500).json({ error })
+        }
+
+
+    }
+
+    async function deleteByDni(req, res) {
+        let body = req.body
+        let participants
+
+        try {
+            participants = await Participant.deleteByDni(body.dni)
 
             res.status(200).json({
                 participants
@@ -112,6 +150,11 @@ module.exports = async function() {
         if (!assistance) {
             res.status(200).json({
                 status: false,
+                participant: {
+                    dni: participant.dni,
+                    name: participant.name,
+                    lastName: participant.lastName
+                },
                 message: "La asistencia de hoy ya ha sido registrada"
             })
         }
@@ -168,6 +211,8 @@ module.exports = async function() {
         create,
         findAll,
         findByDni,
-        addAssistanceByDni
+        addAssistanceByDni,
+        findByAssistance,
+        deleteByDni
     }
 }
