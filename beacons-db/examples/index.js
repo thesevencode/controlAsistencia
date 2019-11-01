@@ -10,12 +10,14 @@ async function run () {
   }
   const { Participant } = await db(uri, config).catch(handleFatalError)
 
-//   const participant1 = await Participant.createOrUpdate({
-//     name: 'Denis Ricardo',
-//     lastName: 'Vilcas Villalba',
-//     code: 15121015,
-//     dni: 71632670,
-//   }).catch(handleFatalError)
+  const participant1 = await Participant.createOrUpdate({
+    name: 'Denis Ricardo',
+    lastName: 'Vilcas Villalba',
+    email: 'Denisricardovilcasvillalba@gmail.com',
+    dni: 71632670,
+    universidad: "Universidad Nacional Amazonica de Madre de Dios"
+
+  }).catch(handleFatalError)
 
 //   const participant2 = await Participant.createOrUpdate({
 //     name: 'Juan Manuel',

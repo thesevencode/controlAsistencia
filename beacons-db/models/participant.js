@@ -16,16 +16,19 @@ module.exports = async function setupUserModel (uri, config) {
             type: String,
             required: true
         },
-        type: {
-            type: String //authority ó student
+        email:{
+            type: String,
+            required: true
         },
-        code: { type: Number },
+        universidad:{
+            type: String,
+            required: true
+        },
         dni: {
             type: Number,
             unique: true,
             required: true
         },
-        photo: { type: String },
         assistance: {
             type: [Date]
         }

@@ -39,20 +39,14 @@ module.exports = function (participantModel) {
 
     }
 
-    function findByType (type) {
+    function findByUniversidad (universidad) {
         const cond = {
-            type
+            universidad
         }
 
         return participantModel.find(cond)
     }
-    function findByCode (code) {
-        const cond = {
-            code
-        }
-
-        return participantModel.findOne(cond)
-    }
+  
 
     function findByDni (dni) {
         const cond = {
@@ -108,8 +102,7 @@ module.exports = function (participantModel) {
         createOrUpdate,
         deleteByDni,
         findById,
-        findByType,
-        findByCode,
+        findByUniversidad,
         findByDni,
         addAssistanceByDni,
         findByAssistance,
