@@ -4,13 +4,17 @@ module.exports = async function() {
     const { Participant } = await db();
 
     function index(req, res) {
-        res.render('index');
-        // await Image
-        //     .find()
-        //     .sort({ timeStamp: 1 })
-        //     .then(images => {
-        //         res.render('index', { images: images });
-        //     })
+        let participants
+        try {
+            participants = await Participant.findAll();
+        } catch (error) {
+            if (error) res.satatus(500).json({ error })
+        }
+
+        res.status(200).json({
+            status: true,
+            data: participants
+        })
     }
 
     async function findByAssistance(req, res) {
